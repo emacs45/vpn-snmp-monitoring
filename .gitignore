@@ -8,5 +8,5 @@
 !docker-compose.yml
 !prometheus.yml
 !pyvenv.cfg
-!scripts/
+#!scripts/
 
