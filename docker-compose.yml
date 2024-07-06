@@ -33,6 +33,16 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
+  flask_app:
+    build: ./webapp
+    container_name: flask_app
+    volumes:
+      - ./scripts:/app/scripts
+      - sqlite-data:/app
+    ports:
+      - "5000:5000"
+
 volumes:
   grafana-storage:
+  sqlite-data:
 
