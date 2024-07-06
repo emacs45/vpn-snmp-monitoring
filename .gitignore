@@ -1,5 +1,12 @@
-echo "venv/" >> .gitignore
-echo "__pycache__/" >> .gitignore
-echo "*.pyc" >> .gitignore
-echo "*.log" >> .gitignore
+# Ignore everything
+*
+
+# Except these files and directories
+!.gitignore
+!LICENSE
+!README.md
+!docker-compose.yml
+!prometheus.yml
+!pyvenv.cfg
+!scripts/
 
