@@ -1,6 +1,6 @@
 # VPN SNMP Monitoring Project
 
-This project sets up a monitoring environment for a VPN server using Prometheus, Grafana, and SNMP Exporter. It also includes a Python script for SNMP queries.
+This project sets up a monitoring environment for a VPN server using Prometheus, Grafana, and Node Exporter.
 
 ## Prerequisites
 
@@ -22,11 +22,22 @@ This project sets up a monitoring environment for a VPN server using Prometheus,
     docker-compose up -d
     ```
 
-3. Access Grafana at [http://localhost:3000](http://localhost:3000) with default credentials `admin/admin`.
+3. Access the services:
+    - **Prometheus UI**: [http://localhost:9090](http://localhost:9090)
+    - **Node Exporter Metrics**: [http://localhost:9100/metrics](http://localhost:9100/metrics)
+    - **Grafana UI**: [http://localhost:3000](http://localhost:3000) with default credentials `admin/admin`.
 
-## Python Script
+## Grafana Setup
 
-The `snmp_query.py` script can be used to query SNMP data.
+1. **Add Prometheus Data Source**:
+   - Go to Configuration (Gear Icon) > Data Sources > Add data source.
+   - Select Prometheus.
+   - Set the URL to `http://prometheus:9090`.
+   - Click Save & Test.
 
-```sh
-python scripts/snmp_query.py
+2. **Import Node Exporter Dashboard**:
+   - Click the plus icon (Create) > Import.
+   - Enter `1860` in the Import via grafana.com field and click Load.
+   - Select the Prometheus data source.
+   - Click Import.
+
