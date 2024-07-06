@@ -3,15 +3,24 @@
 
 # Except these files and directories
 !.gitignore
+!.github
+!.github/*
 !.github/**
+!scripts
+!scripts/*
 !scripts/**
+!tests
+!tests/*
 !tests/**
+!webapp
+!webapp/*
 !webapp/**
 !docker-compose.yml
 !LICENSE
 !prometheus.yml
 !pyvenv.cfg
 !README.md
+!requirements.txt
 
 
 
