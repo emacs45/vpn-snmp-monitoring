@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,26 +15,22 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build Docker image
+      run: |
+        docker build -t vpn-snmp-monitoring:latest .
 
-    - name: Build and push Docker images
-      uses: docker/build-push-action@v2
+    - name: Start SSH Agent
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/vpn-snmp-monitoring:latest
+        ssh-private-key: ${{ secrets.SSH_KEY }}
 
     - name: Deploy to server
       env:
         HOST: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.USERNAME }}
-        SSH_KEY: ${{ secrets.SSH_KEY }}
       run: |
-        ssh -o StrictHostKeyChecking=no -i $SSH_KEY $USERNAME@$HOST << 'EOF'
-          docker pull ${{ secrets.DOCKER_USERNAME }}/vpn-snmp-monitoring:latest
+        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << 'EOF'
+          docker pull vpn-snmp-monitoring:latest
           docker-compose down
           docker-compose up -d
         EOF
