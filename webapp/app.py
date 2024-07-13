@@ -1,20 +1,11 @@
-from flask import Flask, render_template
-import sqlite3
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from webapp import create_app
 
-app = Flask(__name__)
-
-def get_data():
-    conn = sqlite3.connect('snmp_data.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM snmp_data")
-    data = c.fetchall()
-    conn.close()
-    return data
-
-@app.route('/')
-def index():
-    data = get_data()
-    return render_template('index.html', data=data)
+app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5001)
+
+
