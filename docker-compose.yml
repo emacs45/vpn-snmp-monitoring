@@ -34,7 +34,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
   flask_app:
-    build: ./webapp
+    build: 
+      context: ./webapp
     container_name: flask_app
     volumes:
       - ./scripts:/app/scripts
