@@ -83,4 +83,3 @@ def query_snmp_data():
 if __name__ == "__main__":
     create_database()
     query_snmp_data()
-
