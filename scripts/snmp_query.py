@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 from pysnmp.hlapi import (
-    getCmd, SnmpEngine, CommunityData,
+    getCmd, nextCmd, SnmpEngine, CommunityData,
     UdpTransportTarget, ContextData, ObjectType, ObjectIdentity
 )
 
@@ -31,6 +31,7 @@ def query_snmp_data():
         UdpTransportTarget(('localhost', 161)),
         ContextData(),
         ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0'))
+        
     )
 
     error_indication, error_status, error_index, var_binds = next(iterator)
@@ -49,6 +50,31 @@ def query_snmp_data():
             oid = var_bind[0].prettyPrint()
             value = var_bind[1].prettyPrint()
             insert_data(timestamp, oid, value)
+    
+    # SNMP WALK Request
+    
+    iterator = nextCmd(
+        SnmpEngine(),
+        CommunityData('public', mpModel=0),
+        UdpTransportTarget(('localhost', 161)),
+        ContextData(),
+        ObjectType(ObjectIdentity('1.3.6.1.2.1.1'))
+    )
+
+    for error_indication, error_status, error_index, var_binds in iterator:
+        if error_indication:
+            print(error_indication)
+            break
+        elif error_status:
+            print('%s at %s' % (error_status.prettyPrint(),
+                                error_index and var_binds[int(error_index) - 1][0] or '?'))
+            break
+        else:
+            for var_bind in var_binds:
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                oid = var_bind[0].prettyPrint()
+                value = var_bind[1].prettyPrint()
+                insert_data(timestamp, oid, value)
 
 
 if __name__ == "__main__":
