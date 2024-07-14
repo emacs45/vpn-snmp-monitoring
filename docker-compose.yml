@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  flask_app:
+    image: ghcr.io/your_github_username/vpn-snmp-monitoring:latest
+    container_name: flask_app
+    volumes:
+      - ./scripts:/app/scripts
+      - sqlite-data:/app
+    ports:
+      - "5000:5000"
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -32,16 +41,6 @@ services:
       - grafana-storage:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
-
-  flask_app:
-    build: 
-      context: ./webapp
-    container_name: flask_app
-    volumes:
-      - ./scripts:/app/scripts
-      - sqlite-data:/app
-    ports:
-      - "5000:5000"
 
 volumes:
   grafana-storage:

@@ -15,23 +15,12 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: Build Docker image
-      run: |
-        docker build -t vpn-snmp-monitoring:latest ./webapp
+    - name: Log in to GitHub Container Registry
+      run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-    - name: Start SSH Agent
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
-
-    - name: Deploy to server
-      env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
+    - name: Build and push Docker image
       run: |
-        ssh -o StrictHostKeyChecking=no $USERNAME@$HOST << 'EOF'
-          docker pull vpn-snmp-monitoring:latest
-          docker-compose down
-          docker-compose up -d
-        EOF
+        docker build -t ghcr.io/${{ github.repository_owner }}/vpn-snmp-monitoring:latest ./webapp
+        docker push ghcr.io/${{ github.repository_owner }}/vpn-snmp-monitoring:latest
+
 
