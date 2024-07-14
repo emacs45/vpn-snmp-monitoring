@@ -10,7 +10,7 @@ This project monitors SNMP data and stores it in an SQLite database. The collect
 - Docker Compose
 - GitHub Personal Access Token (PAT) with the necessary permissions (`write:packages`, `read:packages`, `repo`)
 
-### Project Structure
+#### Project Structure
 
 ```plaintext
 vpn-snmp-monitoring/
@@ -29,27 +29,27 @@ vpn-snmp-monitoring/
 
 ### Configuration
 
-### GitHub Secrets
+#### GitHub Secrets
 
 Add the following secrets to your GitHub repository:
 
 ``` GHCR_PAT ``` : Your Personal Access Token for the GitHub Container Registry.
 
-### Docker Compose
+#### Docker Compose
 Ensure your ``` docker-compose.yml ``` is properly configured to include services for your Flask app, Prometheus, Node Exporter, and Grafana.
 
-### GitHub Actions Workflows
+#### GitHub Actions Workflows
 
 I have set up two GitHub Actions workflows:
 
-### CI Workflow (.github/workflows/ci.yml)
+##### CI Workflow (.github/workflows/ci.yml)
 
 - Checks out the code.
 - Sets up Python.
 - Installs dependencies.
 - Runs linting and tests using flake8 and pytest.
 
-### CD Workflow (.github/workflows/cd.yml)
+##### CD Workflow (.github/workflows/cd.yml)
 
 - Checks out the code.
 - Sets up Docker Buildx.
@@ -57,18 +57,16 @@ I have set up two GitHub Actions workflows:
 - Builds and pushes the Docker image to the registry.
 - Deploys the services using Docker Compose.
 
-### Running the Application
+## Running the Application
 
-#### 1. Clone the Repository:
+1. Clone the Repository:
 
 ```sh
-git clone https://github.com/your_github_username/vpn-snmp-monitoring.git
-```
-```sh
+git clone https://github.com/emacs45/vpn-snmp-monitoring.git
 cd vpn-snmp-monitoring
 ```
 
-#### 2. Set Up Docker Compose:
+2. Set Up Docker Compose:
 
 Ensure that your docker-compose.yml is configured correctly.
 
@@ -78,17 +76,20 @@ Run the Application:
 docker-compose up -d
 ```
 
-#### 3. Access the services:
+3. Available services:
     
+    - **Grafana UI**: [http://localhost:3000](http://localhost:3000) with default credentials `admin/admin`
     - **Prometheus UI**: [http://localhost:9090](http://localhost:9090)
     - **Node Exporter Metrics**: [http://localhost:9100/metrics](http://localhost:9100/metrics)
-    - **Grafana UI**: [http://localhost:3000](http://localhost:3000) with default credentials `admin/admin`.
+    - **SNMP Walk**: [http://localhost:5001](http://localhost:5001)
 
-### Additional Information
+4. Additional Information
 
     - **Flask App**: [Flask on Github.com](https://github.com/pallets/flask) Serves SNMP data and can be accessed on port 5000
-    -   **Prometheus**: [Prometheus on Github.com](https://github.com/prometheus/prometheus) Collects metrics and can be accessed on port 9090
+    - **Prometheus**: [Prometheus on Github.com](https://github.com/prometheus/prometheus) Collects metrics and can be accessed on port 9090
     - **Node Exporter**: [Node Exporter on Github.com](https://github.com/prometheus/node_exporter) Exposes hardware and OS metrics and can be  accessed on port 9100
     - **Grafana**: [Grafana on Github.com](https://github.com/grafana/grafana) Visualizes metrics and can be accessed on port 3000
+
+
 
 For further details, refer to the individual files in the repository.
