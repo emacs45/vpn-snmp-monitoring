@@ -28,27 +28,28 @@ vpn-snmp-monitoring/
 ```
 
 ### Configuration
-## GitHub Secrets
+
+### GitHub Secrets
 
 Add the following secrets to your GitHub repository:
 
 ``` GHCR_PAT ``` : Your Personal Access Token for the GitHub Container Registry.
 
-## Docker Compose
+### Docker Compose
 Ensure your ``` docker-compose.yml ``` is properly configured to include services for your Flask app, Prometheus, Node Exporter, and Grafana.
 
-## GitHub Actions Workflows
+### GitHub Actions Workflows
 
 I have set up two GitHub Actions workflows:
 
-# CI Workflow (.github/workflows/ci.yml)
+### CI Workflow (.github/workflows/ci.yml)
 
 - Checks out the code.
 - Sets up Python.
 - Installs dependencies.
 - Runs linting and tests using flake8 and pytest.
 
-# CD Workflow (.github/workflows/cd.yml)
+### CD Workflow (.github/workflows/cd.yml)
 
 - Checks out the code.
 - Sets up Docker Buildx.
@@ -56,13 +57,17 @@ I have set up two GitHub Actions workflows:
 - Builds and pushes the Docker image to the registry.
 - Deploys the services using Docker Compose.
 
-# Running the Application
+### Running the Application
+
 1. Clone the Repository:
 
 ```sh
 git clone https://github.com/your_github_username/vpn-snmp-monitoring.git
+```
+```sh
 cd vpn-snmp-monitoring
 ```
+
 2. Set Up Docker Compose:
 
 Ensure that your docker-compose.yml is configured correctly.
@@ -79,11 +84,11 @@ docker-compose up -d
     - **Node Exporter Metrics**: [http://localhost:9100/metrics](http://localhost:9100/metrics)
     - **Grafana UI**: [http://localhost:3000](http://localhost:3000) with default credentials `admin/admin`.
 
-# Additional Information
+### Additional Information
 
-**Flask App**: Serves SNMP data and can be accessed on port 5000.
-**Prometheus**: Collects metrics and can be accessed on port 9090.
-**Node Exporter**: Exposes hardware and OS metrics and can be  accessed on port 9100.
-**Grafana**: Visualizes metrics and can be accessed on port 3000.
+**Flask App**: Serves SNMP data and can be accessed on port 5000
+**Prometheus**: Collects metrics and can be accessed on port 9090
+**Node Exporter**: Exposes hardware and OS metrics and can be  accessed on port 9100
+**Grafana**: Visualizes metrics and can be accessed on port 3000
 
 For further details, refer to the individual files in the repository.
