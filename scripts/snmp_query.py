@@ -38,8 +38,12 @@ def query_snmp_data():
     if error_indication:
         print(error_indication)
     elif error_status:
-        print('%s at %s' % (error_status.prettyPrint(),
-                            error_index and var_binds[int(error_index) - 1][0] or '?'))
+        print(
+            '%s at %s' % (
+                error_status.prettyPrint(),
+                error_index and var_binds[int(error_index) - 1][0] or '?'
+            )
+        )
     else:
         for var_bind in var_binds:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -61,8 +65,12 @@ def query_snmp_data():
             print(error_indication)
             break
         elif error_status:
-            print('%s at %s' % (error_status.prettyPrint(),
-                                error_index and var_binds[int(error_index) - 1][0] or '?'))
+            print(
+                '%s at %s' % (
+                    error_status.prettyPrint(),
+                    error_index and var_binds[int(error_index) - 1][0] or '?'
+                )
+            )
             break
         else:
             for var_bind in var_binds:
