@@ -1,6 +1,10 @@
 import sqlite3
 from datetime import datetime
-from pysnmp.hlapi import *
+from pysnmp.hlapi import (
+    getCmd, SnmpEngine, CommunityData,
+    UdpTransportTarget, ContextData, ObjectType, ObjectIdentity
+)
+
 
 def create_database():
     conn = sqlite3.connect('snmp_data.db')
@@ -10,6 +14,7 @@ def create_database():
     conn.commit()
     conn.close()
 
+
 def insert_data(timestamp, oid, value):
     conn = sqlite3.connect('snmp_data.db')
     c = conn.cursor()
@@ -18,6 +23,7 @@ def insert_data(timestamp, oid, value):
     conn.commit()
     conn.close()
 
+
 def query_snmp_data():
     iterator = getCmd(SnmpEngine(),
                       CommunityData('public', mpModel=0),
@@ -25,18 +31,19 @@ def query_snmp_data():
                       ContextData(),
                       ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0')))
 
-    errorIndication, errorStatus, errorIndex, varBinds = next(iterator)
-    if errorIndication:
-        print(errorIndication)
-    elif errorStatus:
-        print('%s at %s' % (errorStatus.prettyPrint(),
-                            errorIndex and varBinds[int(errorIndex) - 1][0] or '?'))
+    error_indication, error_status, error_index, var_binds = next(iterator)
+    if error_indication:
+        print(error_indication)
+    elif error_status:
+        print('%s at %s' % (error_status.prettyPrint(),
+                            error_index and var_binds[int(error_index) - 1][0] or '?'))
     else:
-        for varBind in varBinds:
+        for var_bind in var_binds:
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            oid = varBind[0].prettyPrint()
-            value = varBind[1].prettyPrint()
+            oid = var_bind[0].prettyPrint()
+            value = var_bind[1].prettyPrint()
             insert_data(timestamp, oid, value)
+
 
 if __name__ == "__main__":
     create_database()
