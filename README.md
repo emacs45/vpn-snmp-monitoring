@@ -85,11 +85,17 @@ docker-compose up -d
 
 4. Additional Information
 
-    - **Flask App**: [Flask on Github.com](https://github.com/pallets/flask) Serves SNMP data and can be accessed on port 5000
-    - **Prometheus**: [Prometheus on Github.com](https://github.com/prometheus/prometheus) Collects metrics and can be accessed on port 9090
-    - **Node Exporter**: [Node Exporter on Github.com](https://github.com/prometheus/node_exporter) Exposes hardware and OS metrics and can be  accessed on port 9100
-    - **Grafana**: [Grafana on Github.com](https://github.com/grafana/grafana) Visualizes metrics and can be accessed on port 3000
+    - **Flask App**: [Flask on Github.com](https://github.com/pallets/flask) 
+    - **Prometheus**: [Prometheus on Github.com](https://github.com/prometheus/prometheus)
+    - **Node Exporter**: [Node Exporter on Github.com](https://github.com/prometheus/node_exporter) 
+    - **Grafana**: [Grafana on Github.com](https://github.com/grafana/grafana)
 
 
+
+For further details, refer to the individual files in the repository.
+
+## Contributing
+
+We welcome contributions to this project! If you are interested in contributing, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
 
 For further details, refer to the individual files in the repository.

@@ -1,4 +1,5 @@
 Flask
+flake8
 requests
 pysnmp
 pytest
