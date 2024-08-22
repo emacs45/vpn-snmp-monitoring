@@ -2,6 +2,9 @@
 
 This project monitors SNMP data and stores it in an SQLite database. The collected data is served via a Flask app and can be visualized using Prometheus and Grafana.
 
+[![CI](https://github.com/emacs45/vpn-snmp-monitoring/actions/workflows/ci.yml/badge.svg)](https://github.com/emacs45/vpn-snmp-monitoring/actions/workflows/ci.yml)
+[![CD](https://github.com/emacs45/vpn-snmp-monitoring/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/emacs45/vpn-snmp-monitoring/actions/workflows/cd.yml)
+
 ## Setup Guide
 
 ### Prerequisites
