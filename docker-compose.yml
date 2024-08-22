@@ -1,8 +1,7 @@
-version: '3.8'
-
 services:
   flask_app:
     image: ghcr.io/emacs45/vpn-snmp-monitoring:latest
+    #image: python:3.10-slim
     container_name: flask_app
     volumes:
       - ./scripts:/app/scripts
